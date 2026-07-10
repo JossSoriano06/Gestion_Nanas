@@ -1,0 +1,111 @@
+<app-navbar-cliente></app-navbar-cliente>
+
+<section class="perfil-container">
+
+    <div *ngIf="cargando" class="cargando">
+        <h2>Cargando perfil...</h2>
+    </div>
+
+    <div *ngIf="nana" class="perfil-card">
+
+        <!-- Información principal -->
+        <div class="info-principal">
+
+            <h1>
+                {{ nana.nombre }} {{ nana.apellido }}
+            </h1>
+
+            <p class="carrera">
+                {{ nana.carrera }}
+                <span>| Ciclo {{ nana.ciclo }}</span>
+            </p>
+
+            <div class="estado">
+                <span>{{ nana.disponibilidad }}</span>
+            </div>
+
+        </div>
+
+        <!-- Datos -->
+        <div class="datos">
+
+            <div class="dato">
+                <h3>Experiencia</h3>
+                <p>{{ nana.experiencia }}</p>
+            </div>
+
+            <div class="dato">
+                <h3>Sobre mí</h3>
+                <p>{{ nana.descripcion }}</p>
+            </div>
+
+            <div class="dato">
+                <h3>Tarifa</h3>
+                <p class="precio">
+                    S/. {{ nana.tarifaHora }} / hora
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Botón -->
+        <button
+            class="btn-reservar"
+            (click)="abrirReserva()">
+
+            Reservar Nana
+
+        </button>
+
+        <!-- FORMULARIO -->
+        <div
+            class="formulario"
+            *ngIf="mostrarFormulario">
+
+            <h2>Solicitar Reserva</h2>
+
+            <label>Fecha de inicio</label>
+
+            <input
+                type="datetime-local"
+                [(ngModel)]="fechaInicio"
+                (change)="calcularMonto()">
+
+            <label>Fecha de fin</label>
+
+            <input
+                type="datetime-local"
+                [(ngModel)]="fechaFin"
+                (change)="calcularMonto()">
+
+            <p>
+
+                <strong>Tarifa por hora:</strong>
+
+                S/. {{ nana.tarifaHora }}
+
+            </p>
+
+            <p>
+
+                <strong>Monto total:</strong>
+
+                S/. {{ montoTotal }}
+
+            </p>
+
+            <button
+                class="btn-confirmar"
+                (click)="confirmarReserva()">
+
+                Confirmar Reserva
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<app-footer></app-footer>

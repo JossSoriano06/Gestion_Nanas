@@ -1,62 +1,50 @@
 <section class="dashboard">
 
+    <!-- HEADER -->
+
     <header class="topbar">
 
         <div>
 
-            <h1>
+            <h1>👋 Hola {{ nombre }} {{ apellido }}</h1>
 
-                Hola {{ nombre }} {{ apellido }}
-
-            </h1>
-
-            <p>
-
-                Bienvenido nuevamente.
-
-            </p>
+            <p>Nos alegra volver a verte.</p>
 
         </div>
 
         <button class="logout" (click)="cerrarSesion()">
-
             Cerrar sesión
-
         </button>
 
     </header>
 
-    <section class="acciones">
+    <!-- TARJETAS -->
 
-        <!-- BUSCAR CUIDADORAS -->
+    <section class="acciones">
 
         <div class="card" routerLink="/buscar">
 
-            <div class="icono">🔍</div>
+            <div class="icono">🔎</div>
 
-            <h3>Buscar Cuidadoras</h3>
+            <h3>Buscar cuidadoras</h3>
 
             <p>
-                Encuentra la cuidadora ideal para tu familia.
+                Encuentra la nana perfecta para tu familia.
             </p>
 
         </div>
-
-        <!-- RESERVAS-->
 
         <div class="card" routerLink="/reservar">
 
             <div class="icono">📅</div>
 
-            <h3>Mis Reservas</h3>
+            <h3>Mis reservas</h3>
 
-            <p>
-                Consulta tus reservas realizadas.
-            </p>
+            <h2>{{ reservas.length }}</h2>
+
+            <small>Reservas activas</small>
 
         </div>
-
-        <!-- FAVORITOS -->
 
         <div class="card" routerLink="/favoritos">
 
@@ -65,50 +53,106 @@
             <h3>Favoritos</h3>
 
             <p>
-                Guarda tus nanas favoritas.
+
+                Tus cuidadoras preferidas.
+
             </p>
 
         </div>
 
-        <!-- PERFIL CLIENTE -->
-        
         <div class="card" routerLink="/perfil-cliente">
 
             <div class="icono">👤</div>
 
-            <h3>Mi Perfil</h3>
+            <h3>Mi perfil</h3>
 
             <p>
-                Edita tu información personal.
+
+                Administra tu información.
+
             </p>
 
         </div>
 
     </section>
 
+    <!-- INFORMACIÓN -->
+
     <section class="paneles">
 
         <div class="panel">
 
-            <h2>Próxima reserva</h2>
+            <h2>📌 Próxima reserva</h2>
 
-            <p>
-                Aún no tienes reservas programadas...
-            </p>
+            <div *ngIf="reservas.length==0" class="vacio">
+
+                No tienes reservas próximas.
+
+            </div>
+
+            <div *ngIf="reservas.length>0">
+
+                <div class="estado">
+
+                    {{ reservas[0].estadoReserva }}
+
+                </div>
+
+                <p>
+
+                    <strong>Inicio</strong><br>
+
+                    {{ reservas[0].fechaInicio }}
+
+                </p>
+
+                <p>
+
+                    <strong>Fin</strong><br>
+
+                    {{ reservas[0].fechaFin }}
+
+                </p>
+
+                <button
+                    class="btn-detalle"
+                    routerLink="/reservar">
+
+                    Ver reserva
+
+                </button>
+
+            </div>
 
         </div>
 
         <div class="panel">
 
-            <h2> Actividad reciente</h2>
+            <h2>📊 Resumen</h2>
 
-            <ul>
+            <div class="resumen">
 
-                <li>Cuenta creada correctamente.</li>
+                <div>
 
-                <li>Bienvenido a Nanas Universitarias.</li>
+                    <h3>{{ reservas.length }}</h3>
 
-            </ul>
+                    <span>Reservas</span>
+
+                </div>
+
+                <div>
+
+                    <h3>
+
+                        {{ reservas.length>0 ? reservas[0].estadoReserva : '--' }}
+
+                    </h3>
+
+                    <span>Estado</span>
+
+                </div>
+
+            </div>
 
         </div>
 

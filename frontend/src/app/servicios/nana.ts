@@ -20,4 +20,8 @@ export class NanaService {
   registrarNana(nana: Nana): Observable<Nana> {
     return this.http.post<Nana>(`${this.apiUrl}/registrar`, nana);
   }
+
+  obtenerPorId(id: number): Observable<Nana> {
+    return this.http.get<Nana>(`${this.apiUrl}/${id}`);
+  }
 }

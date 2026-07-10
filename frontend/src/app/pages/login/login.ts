@@ -57,6 +57,12 @@ export class Login implements OnInit {
         //Guarda el objeto entero de Juan en el navegador como texto string
         localStorage.setItem('usuario', JSON.stringify(response));
 
+        localStorage.setItem("usuario_id", response.idUsuario);
+
+        if(response.idNana){
+            localStorage.setItem("id_nana", response.idNana);
+        }
+
         const rol = response.tipoUsuario;
 
         if (rol === 'ADMIN') {

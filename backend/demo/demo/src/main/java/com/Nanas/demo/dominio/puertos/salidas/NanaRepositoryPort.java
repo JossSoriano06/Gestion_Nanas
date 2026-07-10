@@ -8,4 +8,6 @@ public interface NanaRepositoryPort {
     
     List<Nana> obtenerTodas();
     Nana guardarNana(Nana nana);
+    
+    Nana buscarNanaPorId(Integer idNana);
 }

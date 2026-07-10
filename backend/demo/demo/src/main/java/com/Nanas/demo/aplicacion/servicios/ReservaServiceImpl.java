@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class ReservaServiceImpl implements ReservaService {
     public Reserva solicitarReserva(Reserva reserva) {
 
         LocalDateTime ahora = LocalDateTime.now();
-        if (Duration.between(ahora, reserva.getFechaInicio()).toHours() < 12) {
-            throw new IllegalArgumentException("Las reservas deben realizarse con un mínimo de 12 horas de anticipación.");
+        if (Duration.between(ahora, reserva.getFechaInicio()).toHours() < 1) {
+            throw new IllegalArgumentException("Las reservas deben realizarse con un mínimo de 1 hora de anticipación.");
         }
 
         
@@ -189,5 +190,18 @@ public class ReservaServiceImpl implements ReservaService {
         
         return ubicacion;
     }
-    
+
+    @Override
+    public List<Reserva> obtenerPendientesNana(Integer idNana){
+
+        return reservaRepositoryPort.obtenerPendientesNana(idNana);
+
+    }
+
+    @Override
+    public List<Reserva> obtenerReservasCliente(Integer idCliente) {
+
+        return reservaRepositoryPort.obtenerReservasCliente(idCliente);
+
+    }
 }

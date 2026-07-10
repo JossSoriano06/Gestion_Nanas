@@ -1,0 +1,155 @@
+.contenedor{
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    padding:20px;
+
+}
+
+.reserva-card{
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.cabecera{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.info{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    margin-bottom:25px;
+
+}
+
+.badge{
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.aceptada{
+
+    background:#2ecc71;
+
+}
+
+.pendiente{
+
+    background:#f39c12;
+
+}
+
+.rechazada{
+
+    background:#e74c3c;
+
+}
+
+.btn-pagar{
+
+    background:#4f7cff;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-pagar:hover{
+
+    background:#315fe2;
+
+    transform:translateY(-2px);
+
+}
+
+.espera{
+
+    color:#f39c12;
+
+    font-weight:600;
+
+}
+
+.rechazada{
+
+    color:#e74c3c;
+
+    font-weight:600;
+
+}
+
+.sin-reservas{
+
+    text-align:center;
+
+    padding:60px;
+
+    background:white;
+
+    border-radius:16px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.sin-reservas button{
+
+    margin-top:20px;
+
+    background:#4f7cff;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}

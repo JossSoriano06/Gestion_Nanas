@@ -1,0 +1,201 @@
+.perfil-container {
+
+    min-height: 80vh;
+    padding: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #f7f9fc;
+
+}
+
+
+
+.perfil-card {
+
+    width: 700px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+    text-align: center;
+
+}
+
+
+.carrera {
+
+    font-size: 18px;
+
+    color: #666;
+
+}
+
+
+
+.estado span {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 8px 18px;
+
+    border-radius: 20px;
+
+    background: #e8f8ed;
+
+    color: #218838;
+
+    font-weight: bold;
+
+}
+
+
+
+.datos {
+
+    margin-top: 30px;
+
+    display: grid;
+
+    gap: 20px;
+
+}
+
+
+
+.dato {
+
+    background: #f8fafc;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    text-align: left;
+
+}
+
+
+
+.dato h3 {
+
+    margin-bottom: 8px;
+
+    color: #333;
+
+}
+
+
+
+.dato p {
+
+    color: #555;
+
+}
+
+
+
+.precio {
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    color: #2563eb;
+
+}
+
+
+
+.btn-reservar {
+
+    margin-top: 30px;
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+}
+
+
+
+.btn-reservar:hover {
+
+    background: #1d4ed8;
+
+}
+
+.formulario {
+
+    margin-top: 40px;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    background: #f8fafc;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+}
+
+.formulario input {
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    border: 1px solid #ddd;
+
+}
+
+.btn-confirmar {
+
+    background: #2563EB;
+
+    color: white;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+.btn-confirmar:hover {
+
+    background: #1D4ED8;
+
+}

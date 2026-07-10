@@ -1,2 +1,141 @@
-<app-navbar></app-navbar>
-<h1>reservar works!</h1>
+<app-navbar-cliente></app-navbar-cliente>
+
+<section class="contenedor">
+
+    <h1>Mis reservas</h1>
+
+    <p class="subtitulo">
+
+        Consulta el estado de todas tus solicitudes.
+
+    </p>
+
+    <div
+        class="sin-reservas"
+        *ngIf="reservas.length==0">
+
+        <h2>No tienes reservas registradas.</h2>
+
+        <button routerLink="/buscar">
+
+            Buscar una cuidadora
+
+        </button>
+
+    </div>
+
+    <div
+        class="reserva-card"
+        *ngFor="let reserva of reservas">
+
+        <div class="cabecera">
+
+            <h2>
+
+                Reserva #{{ reserva.idReserva }}
+
+            </h2>
+
+            <span
+                class="badge"
+
+                [ngClass]="{
+
+                    'pendiente':reserva.estadoReserva=='PENDIENTE',
+
+                    'aceptada':reserva.estadoReserva=='ACEPTADA',
+
+                    'rechazada':reserva.estadoReserva=='RECHAZADA'
+
+                }">
+
+                {{ reserva.estadoReserva }}
+
+            </span>
+
+        </div>
+
+        <div class="info">
+
+            <div>
+
+                <strong>Inicio</strong>
+
+                <p>{{ reserva.fechaInicio }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Fin</strong>
+
+                <p>{{ reserva.fechaFin }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Monto</strong>
+
+                <p>S/. {{ reserva.montoTotal }}</p>
+
+            </div>
+
+            <div>
+
+                <strong>Pago</strong>
+
+                <p>{{ reserva.estadoPago }}</p>
+
+            </div>
+
+        </div>
+
+        <div class="acciones">
+
+            <button
+
+                *ngIf="reserva.estadoReserva=='ACEPTADA'
+                && reserva.estadoPago=='PENDIENTE'"
+
+                class="btn-pagar">
+
+                Pagar ahora
+
+            </button>
+
+            <button
+
+                *ngIf="reserva.estadoPago=='PAGADO'">
+
+                📍 Ver ubicación
+
+            </button>
+
+            <span
+
+                class="espera"
+
+                *ngIf="reserva.estadoReserva=='PENDIENTE'">
+
+                ⏳ Esperando respuesta de la nana
+
+            </span>
+
+            <span
+
+                class="rechazada"
+
+                *ngIf="reserva.estadoReserva=='RECHAZADA'">
+
+                ❌ La solicitud fue rechazada
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<app-footer></app-footer>

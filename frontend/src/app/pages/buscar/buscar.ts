@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { Navbar } from '../../shared/components/navbar/navbar';
+import { NavbarCliente } from '../../shared/components/navbar-cliente/navbar-cliente';
 import { Footer } from '../../shared/components/footer/footer';
 
 import { NanaService } from '../../servicios/nana';
 import { Nana } from '../../modelos/nana';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscar',
@@ -14,7 +16,7 @@ import { Nana } from '../../modelos/nana';
   imports: [
     CommonModule,
     FormsModule,
-    Navbar,
+    NavbarCliente,
     Footer
   ],
   templateUrl: './buscar.html',
@@ -32,7 +34,8 @@ export class Buscar implements OnInit {
   cargando = true;
 
   constructor(
-    private nanaService: NanaService
+    private nanaService: NanaService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -100,6 +103,15 @@ export class Buscar implements OnInit {
 
     console.log("Resultado del filtro:");
     console.log(this.nanasFiltradas);
+
+  }
+
+  verPerfil(id: number): void {
+
+    console.log("BOTÓN PRESIONADO");
+    console.log("ID NANA:", id);
+
+    this.router.navigate(['/verperfil-nana', id]);
 
   }
 

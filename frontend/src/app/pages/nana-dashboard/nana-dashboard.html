@@ -81,13 +81,67 @@
             <!-- Solicitudes -->
             <div class="panel">
 
-                <h2>📅 Próximas solicitudes</h2>
+                <h2>📅 Solicitudes pendientes</h2>
 
-                <p>
+                
+                <p>Total solicitudes: {{ solicitudes.length }}</p>
 
-                    Aún no tienes solicitudes pendientes.
+                <div *ngIf="solicitudes.length == 0">
 
-                </p>
+                    <p>No tienes solicitudes pendientes.</p>
+
+                </div>
+
+                <div *ngFor="let reserva of solicitudes" class="solicitud-card">
+
+                    <p>
+
+                        <strong>Cliente:</strong>
+                        {{ reserva.idCliente }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Inicio:</strong>
+                        {{ reserva.fechaInicio }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Fin:</strong>
+                        {{ reserva.fechaFin }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Monto:</strong>
+
+                        S/. {{ reserva.montoTotal }}
+
+                    </p>
+
+                    <div class="botones">
+
+                        <button class="btn-aceptar" (click)="aceptar(reserva.idReserva!)">
+
+                            Aceptar
+
+                        </button>
+
+                        <button class="btn-rechazar" (click)="rechazar(reserva.idReserva!)">
+
+                            Rechazar
+
+                        </button>
+
+                    </div>
+
+                    <hr>
+
+                </div>
 
             </div>
 
@@ -98,7 +152,7 @@
 
                 <div class="foto">
 
-                X
+                    X
 
                 </div>
 

@@ -56,6 +56,20 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
             usuario.setEstadoCuenta(entity.getEstadoCuenta());
             usuario.setFechaRegistro(entity.getFechaRegistro());
             usuario.setUltimoLogin(entity.getUltimoLogin());
+
+            if ("NANA".equals(entity.getTipoUsuario())) {
+
+                nanaRepository.buscarPorIdUsuario(entity.getIdUsuario())
+                        .ifPresent(nana -> usuario.setIdNana(nana.getIdNana()));
+
+            }
+
+            if ("CLIENTE".equals(entity.getTipoUsuario())) {
+
+                clienteRepository.findByUsuario_IdUsuario(entity.getIdUsuario())
+                        .ifPresent(cliente -> usuario.setIdCliente(cliente.getIdCliente()));
+
+            }
             return usuario;
         });
 
@@ -261,6 +275,12 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         nana.setRatingPromedio(entity.getRatingPromedio());
         nana.setCantidadReviews(entity.getCantidadReviews());
 
+        // Agregamos los campos de descripcion, experiencia, disponibilidad y verificado
+        nana.setDescripcion(entity.getDescripcion());
+        nana.setExperiencia(entity.getExperiencia());
+        nana.setDisponibilidad(entity.getDisponibilidad());
+        nana.setVerificado(entity.getVerificado());
+
         return nana;
     }
 
@@ -298,6 +318,20 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         usuarioD.setFechaRegistro(guardado.getFechaRegistro());
         usuarioD.setUltimoLogin(guardado.getUltimoLogin());
 
+        if ("NANA".equals(guardado.getTipoUsuario())) {
+
+            nanaRepository.buscarPorIdUsuario(guardado.getIdUsuario())
+                    .ifPresent(nana -> usuarioD.setIdNana(nana.getIdNana()));
+
+        }
+
+        if ("CLIENTE".equals(guardado.getTipoUsuario())) {
+
+            clienteRepository.findByUsuario_IdUsuario(guardado.getIdUsuario())
+                    .ifPresent(cliente -> usuarioD.setIdCliente(cliente.getIdCliente()));
+
+        }
+
         return usuarioD;
     }
 
@@ -324,13 +358,11 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
                 });
     }
 
-
     @Override
     public Cliente actualizarCliente(Integer idUsuario, Cliente cliente) {
 
         UsuarioEntity entity = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> 
-                    new IllegalArgumentException("Usuario no encontrado"));
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
         entity.setNombre(cliente.getNombre());
         entity.setApellido(cliente.getApellido());

@@ -1,5 +1,6 @@
 package com.Nanas.demo.infraestructura.adaptadores.web.Controladores;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -22,28 +23,58 @@ import com.Nanas.demo.dominio.modelos.Ubicacion;
 @CrossOrigin(origins = "*")
 public class ReservaController {
 
-
     private final ReservaService reservaService;
 
     public ReservaController(ReservaService reservaService) {
         this.reservaService = reservaService;
     }
 
-    // crear reserva
     @PostMapping
     public ResponseEntity<?> crearReserva(@RequestBody Reserva reserva) {
+
         try {
+
+            System.out.println("===== RESERVA RECIBIDA =====");
+            System.out.println("Cliente: " + reserva.getIdCliente());
+            System.out.println("Nana: " + reserva.getIdNana());
+            System.out.println("Inicio: " + reserva.getFechaInicio());
+            System.out.println("Fin: " + reserva.getFechaFin());
+            System.out.println("Monto: " + reserva.getMontoTotal());
+
             Reserva nuevaReserva = reservaService.solicitarReserva(reserva);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevaReserva);
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            // Captura cruces de horario o reserva menor a 12 horas
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
         } catch (Exception e) {
+
+            e.printStackTrace();
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al procesar la solicitud de reserva.");
+                    .body(e.toString());
+
         }
+
     }
 
+    /*
+     * // crear reserva
+     * 
+     * @PostMapping
+     * public ResponseEntity<?> crearReserva(@RequestBody Reserva reserva) {
+     * 
+     * try {
+     * Reserva nuevaReserva = reservaService.solicitarReserva(reserva);
+     * return ResponseEntity.status(HttpStatus.CREATED).body(nuevaReserva);
+     * } catch (IllegalArgumentException | IllegalStateException e) {
+     * // Captura cruces de horario o reserva menor a 12 horas
+     * return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+     * } catch (Exception e) {
+     * return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+     * .body("Error al procesar la solicitud de reserva.");
+     * }
+     * 
+     * }
+     */
     // acpetar el reserva por aprte de las nanas
     @PatchMapping("/{id}/aceptar")
     public ResponseEntity<?> aceptarReserva(@PathVariable Integer id) {
@@ -131,5 +162,23 @@ public class ReservaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al recuperar la localización del satélite.");
         }
+    }
+
+    @GetMapping("/solicitudes/{idNana}")
+    public ResponseEntity<List<Reserva>> obtenerSolicitudes(
+            @PathVariable Integer idNana) {
+
+        return ResponseEntity.ok(
+                reservaService.obtenerPendientesNana(idNana));
+
+    }
+
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<List<Reserva>> obtenerReservasCliente(
+            @PathVariable Integer idCliente) {
+
+        return ResponseEntity.ok(
+                reservaService.obtenerReservasCliente(idCliente));
+
     }
 }

@@ -1,6 +1,7 @@
 package com.Nanas.demo.infraestructura.adaptadores.persistencia.adaptadores;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -18,7 +19,6 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
 
     private final SpringDataReservaRepository reservaRepository;
     private final SpringDataUbicacionRepositoty ubicacionRepository;
-    
 
     public ReservaPersitenceAdapter(SpringDataReservaRepository reservaRepository,
             SpringDataUbicacionRepositoty ubicacionRepositoty) {
@@ -26,10 +26,39 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
         this.ubicacionRepository = ubicacionRepositoty;
     }
 
+    /*
+     * @Override
+     * public Reserva guardarReserva(Reserva reserva) {
+     * // Mapeo de Dominio a Entidad
+     * ReservaEntity entity = new ReservaEntity();
+     * entity.setIdCliente(reserva.getIdCliente());
+     * entity.setIdNana(reserva.getIdNana());
+     * entity.setFechaInicio(reserva.getFechaInicio());
+     * entity.setFechaFin(reserva.getFechaFin());
+     * entity.setMontoTotal(reserva.getMontoTotal());
+     * entity.setEstadoPago(reserva.getEstadoPago());
+     * entity.setEstadoReserva(reserva.getEstadoReserva());
+     * 
+     * System.out.println("===== GUARDANDO =====");
+     * System.out.println(entity.getIdCliente());
+     * System.out.println(entity.getIdNana());
+     * System.out.println(entity.getFechaInicio());
+     * System.out.println(entity.getFechaFin());
+     * System.out.println(entity.getMontoTotal());
+     * 
+     * ReservaEntity guardado = reservaRepository.save(entity);
+     * 
+     * // Devolvemos el modelo de dominio actualizado con el ID generado por MySQL
+     * reserva.setIdReserva(guardado.getIdReserva());
+     * reserva.setFechaReserva(guardado.getFechaReserva());
+     * return reserva;
+     * }
+     */
     @Override
     public Reserva guardarReserva(Reserva reserva) {
-        // Mapeo de Dominio a Entidad
+
         ReservaEntity entity = new ReservaEntity();
+
         entity.setIdCliente(reserva.getIdCliente());
         entity.setIdNana(reserva.getIdNana());
         entity.setFechaInicio(reserva.getFechaInicio());
@@ -38,11 +67,20 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
         entity.setEstadoPago(reserva.getEstadoPago());
         entity.setEstadoReserva(reserva.getEstadoReserva());
 
+        System.out.println("===== ANTES DEL SAVE =====");
+        System.out.println(entity.getIdCliente());
+        System.out.println(entity.getIdNana());
+        System.out.println(entity.getFechaInicio());
+        System.out.println(entity.getFechaFin());
+        System.out.println(entity.getMontoTotal());
+
         ReservaEntity guardado = reservaRepository.save(entity);
 
-        // Devolvemos el modelo de dominio actualizado con el ID generado por MySQL
+        System.out.println("===== DESPUÉS DEL SAVE =====");
+
         reserva.setIdReserva(guardado.getIdReserva());
         reserva.setFechaReserva(guardado.getFechaReserva());
+
         return reserva;
     }
 
@@ -50,12 +88,12 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
     public boolean existeCruzeHorario(Integer idNana, LocalDateTime inicio, LocalDateTime fin) {
         return reservaRepository.existsOverlappingReservation(idNana, inicio, fin);
     }
-    
 
     @Override
     public Ubicacion buscarUltimaUbicacionUsuario(Integer idUsuario) {
-        Optional<UbicacionEntity> entityOpt = ubicacionRepository.findFirstByIdUsuarioOrderByFechaRegistroDesc(idUsuario);
-        
+        Optional<UbicacionEntity> entityOpt = ubicacionRepository
+                .findFirstByIdUsuarioOrderByFechaRegistroDesc(idUsuario);
+
         if (entityOpt.isEmpty()) {
             return null;
         }
@@ -68,14 +106,14 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
         ubicacion.setLatitud(entity.getLatitud());
         ubicacion.setLongitud(entity.getLongitud());
         ubicacion.setFechaRegistro(entity.getFechaRegistro());
-        
+
         return ubicacion;
     }
 
     @Override
     public void actualizarEstadoReserva(Integer idReserva, String nuevoEstado) {
         // Buscamos la entidad,
-        //cambiamos de estado y guardamos
+        // cambiamos de estado y guardamos
         reservaRepository.findById(idReserva).ifPresent(entity -> {
             entity.setEstadoReserva(nuevoEstado);
             reservaRepository.save(entity);
@@ -96,9 +134,9 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
 
         // El servicio se encargará de lanzar la excepción si no existe
         Optional<ReservaEntity> entityOpt = reservaRepository.findById(idReserva);
-        
+
         if (entityOpt.isEmpty()) {
-            return null; 
+            return null;
         }
 
         ReservaEntity entity = entityOpt.get();
@@ -117,6 +155,57 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
 
         return reserva;
     }
-}    
-    
 
+    @Override
+    public List<Reserva> obtenerPendientesNana(Integer idNana) {
+
+        List<ReservaEntity> entities = reservaRepository.findPendientesByNana(idNana);
+
+        return entities.stream().map(entity -> {
+
+            Reserva reserva = new Reserva();
+
+            reserva.setIdReserva(entity.getIdReserva());
+            reserva.setIdCliente(entity.getIdCliente());
+            reserva.setIdNana(entity.getIdNana());
+            reserva.setFechaInicio(entity.getFechaInicio());
+            reserva.setFechaFin(entity.getFechaFin());
+            reserva.setMontoTotal(entity.getMontoTotal());
+            reserva.setEstadoReserva(entity.getEstadoReserva());
+            reserva.setEstadoPago(entity.getEstadoPago());
+
+            return reserva;
+
+        }).toList();
+
+    }
+
+    @Override
+    public List<Reserva> obtenerReservasCliente(Integer idCliente) {
+
+        System.out.println("ID CLIENTE RECIBIDO: " + idCliente);
+
+        List<ReservaEntity> entities = reservaRepository.findByCliente(idCliente);
+
+        System.out.println("RESERVAS ENCONTRADAS: " + entities.size());
+
+        return entities.stream().map(entity -> {
+
+            Reserva reserva = new Reserva();
+
+            reserva.setIdReserva(entity.getIdReserva());
+            reserva.setIdCliente(entity.getIdCliente());
+            reserva.setIdNana(entity.getIdNana());
+            reserva.setFechaInicio(entity.getFechaInicio());
+            reserva.setFechaFin(entity.getFechaFin());
+            reserva.setMontoTotal(entity.getMontoTotal());
+            reserva.setEstadoReserva(entity.getEstadoReserva());
+            reserva.setEstadoPago(entity.getEstadoPago());
+
+            return reserva;
+
+        }).toList();
+
+    }
+
+}

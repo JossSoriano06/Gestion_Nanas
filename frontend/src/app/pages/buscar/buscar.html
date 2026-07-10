@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar-cliente></app-navbar-cliente>
 
 <section class="buscar-page">
     
@@ -137,7 +137,7 @@
                 S/. {{ nana.tarifaHora }} / hora
             </p>
 
-            <button>
+            <button (click)="verPerfil(nana.idNana)">
 
                 Ver Perfil
 

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Navbar } from '../../shared/components/navbar/navbar';
+import { NavbarCliente } from '../../shared/components/navbar-cliente/navbar-cliente';
 import { Footer } from '../../shared/components/footer/footer';
 
 @Component({
   selector: 'app-favoritos',
   imports: [
-    Navbar,
+    NavbarCliente,
     Footer
   ],
   templateUrl: './favoritos.html',

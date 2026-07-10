@@ -1,7 +1,10 @@
 import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
-import { Router } from '@angular/router'; // 1. Importamos el Router
+import { ReservaService } from '../../servicios/reserva';
+import { Reserva } from '../../modelos/reserva';
 
 @Component({
   selector: 'app-nana-dashboard',
@@ -15,32 +18,111 @@ export class DashboardNana implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
 
+  constructor(
+    private reservaService: ReservaService,
+    private cd: ChangeDetectorRef
+  ) {}
+
   nombre = '';
   apellido = '';
   correo = '';
   telefono = '';
 
+  solicitudes: Reserva[] = [];
+
   ngOnInit(): void {
 
     if (isPlatformBrowser(this.platformId)) {
 
-      this.nombre = localStorage.getItem('usuario_nombre') || '';
-      this.apellido = localStorage.getItem('usuario_apellido') || '';
-      this.correo = localStorage.getItem('usuario_correo') || '';
-      this.telefono = localStorage.getItem('usuario_telefono') || '';
+      const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+
+      this.nombre = usuario.nombre || '';
+      this.apellido = usuario.apellido || '';
+      this.correo = usuario.correo || '';
+      this.telefono = usuario.telefono || '';
+
+      const idNana = Number(localStorage.getItem('id_nana'));
+
+      this.reservaService.obtenerSolicitudes(idNana)
+        .subscribe({
+
+          next: (data) => {
+
+            console.log("SOLICITUDES:", data);
+
+            this.solicitudes = [...data];
+
+            this.cd.detectChanges();
+
+          },
+
+          error: (err) => {
+
+            console.error(err);
+
+          }
+
+        });
 
     }
 
   }
 
-  // 3. Añadimos la función exacta para cerrar sesión
+  aceptar(idReserva: number): void {
+
+    this.reservaService.aceptarReserva(idReserva)
+      .subscribe({
+
+        next: () => {
+
+          alert("Reserva aceptada");
+
+          this.ngOnInit();
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+        }
+
+      });
+
+  }
+
+  rechazar(idReserva: number): void {
+
+    this.reservaService.rechazarReserva(idReserva)
+      .subscribe({
+
+        next: () => {
+
+          alert("Reserva rechazada");
+
+          this.ngOnInit();
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+        }
+
+      });
+
+  }
+
   cerrarSesion(): void {
+
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.clear(); // Borra los datos de sesión guardados
+
+      localStorage.clear();
+
     }
-    this.router.navigate(['/']); // Redirige a la página principal o login
+
+    this.router.navigate(['/']);
+
   }
-
-  
-
 }

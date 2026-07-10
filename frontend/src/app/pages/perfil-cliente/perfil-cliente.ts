@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Navbar } from '../../shared/components/navbar/navbar';
+import { NavbarCliente } from '../../shared/components/navbar-cliente/navbar-cliente';
 import { Footer } from '../../shared/components/footer/footer';
 
 import { ClienteService } from '../../servicios/cliente'; 
 import { Cliente } from '../../modelos/cliente'; 
+
 
 @Component({
   selector: 'app-perfil-cliente',
@@ -14,7 +15,7 @@ import { Cliente } from '../../modelos/cliente';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    Navbar,
+    NavbarCliente,
     Footer
   ],
   templateUrl: './perfil-cliente.html',

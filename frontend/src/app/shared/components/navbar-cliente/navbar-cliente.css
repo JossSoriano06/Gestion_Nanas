@@ -1,0 +1,129 @@
+/* ===========================
+   RESET
+=========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* ===========================
+   NAVBAR (Modificado para empujar los extremos)
+=========================== */
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* ¡Clave! Logo a la izquierda, acciones a la derecha */
+    padding: 18px 70px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* ===========================
+   LOGO
+=========================== */
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2563EB;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: .3s;
+}
+
+.logo:hover {
+    color: #1D4ED8;
+}
+
+/* ===========================
+   ACCIONES
+=========================== */
+.acciones {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* ===========================
+   USUARIO
+=========================== */
+.usuario { /* Cambiado a .usuario para que coincida con tu HTML modificado */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #344054;
+    white-space: nowrap;
+}
+
+/* ===========================
+   BOTÓN CERRAR SESIÓN
+=========================== */
+.btn-login {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .3s;
+    width: auto; /* Ajustado a auto para que no fuerce un ancho innecesario */
+}
+
+.btn-login:hover {
+    color: #DC2626; /* Cambiado a un tono rojo sutil al pasar el mouse por ser "Cerrar sesión" */
+}
+
+/* ===========================
+   BOTÓN DASHBOARD
+=========================== */
+.btn-register {
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.btn-register:hover {
+    background: #1D4ED8;
+}
+
+/* ===========================
+   RESPONSIVE MÓVIL
+=========================== */
+@media(max-width: 600px) {
+    .navbar {
+        padding: 18px 20px; /* Reduce los lados en pantallas pequeñas */
+    }
+    
+    .acciones {
+        gap: 10px;
+    }
+    
+    .usuario {
+        font-size: 14px;
+    }
+    
+    .btn-register, .btn-login {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+}

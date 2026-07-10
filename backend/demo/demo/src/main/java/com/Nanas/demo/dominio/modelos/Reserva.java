@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Reserva {
-    private Integer IdReserva;
-    private Integer IdCliente;
-    private Integer IdNana;
+    private Integer idReserva;
+    private Integer idCliente;
+    private Integer idNana;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
     private BigDecimal montoTotal;
@@ -18,27 +18,27 @@ public class Reserva {
     }
 
     public Integer getIdReserva() {
-        return IdReserva;
+        return idReserva;
     }
 
     public void setIdReserva(Integer idReserva) {
-        IdReserva = idReserva;
+        this.idReserva = idReserva;
     }
 
     public Integer getIdCliente() {
-        return IdCliente;
+        return idCliente;
     }
 
     public void setIdCliente(Integer idCliente) {
-        IdCliente = idCliente;
+        this.idCliente = idCliente;
     }
 
     public Integer getIdNana() {
-        return IdNana;
+        return idNana;
     }
 
     public void setIdNana(Integer idNana) {
-        IdNana = idNana;
+        this.idNana = idNana;
     }
 
     public LocalDateTime getFechaInicio() {

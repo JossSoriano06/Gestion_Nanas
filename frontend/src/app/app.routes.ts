@@ -16,6 +16,7 @@ import { DashboardNana } from './pages/nana-dashboard/nana-dashboard';
 import { Reservar } from './pages/reservar/reservar';
 import { PerfilCliente } from './pages/perfil-cliente/perfil-cliente';
 import { Favoritos } from './pages/favoritos/favoritos';
+import { VerperfilNana } from './pages/verperfil-nana/verperfil-nana';
 
 export const routes: Routes = [
 
@@ -25,6 +26,13 @@ export const routes: Routes = [
     path: 'buscar',
     component: Buscar
   },
+
+  {
+    path:'verperfil-nana/:id',
+    loadComponent: () =>
+      import('./pages/verperfil-nana/verperfil-nana')
+      .then(m => m.VerperfilNana)
+    },
 
   {
     path: 'reservar',

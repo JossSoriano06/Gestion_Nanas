@@ -16,9 +16,6 @@ public class NanaServiceImpl implements NanaService {
 
     private final UsuarioRepositoryPort usuarioRepositoryPort;
     private final NanaRepositoryPort nanaRepositoryPort;
-    
-
-    
 
     public NanaServiceImpl(UsuarioRepositoryPort usuarioRepositoryPort, NanaRepositoryPort nanaRepositoryPort) {
         this.usuarioRepositoryPort = usuarioRepositoryPort;
@@ -33,19 +30,19 @@ public class NanaServiceImpl implements NanaService {
         if (usuarioRepositoryPort.existePorDni(nana.getDni())) {
             throw new IllegalArgumentException("El DNI ya está registrado");
         }
-        if(nana.getCodigoUniversitario() == null || nana.getCodigoUniversitario().isEmpty()) {
+        if (nana.getCodigoUniversitario() == null || nana.getCodigoUniversitario().isEmpty()) {
             throw new IllegalArgumentException("El código universitario es obligatorio");
         }
         // Validar que la tarifa por hora sea mayor a cero
-        if(nana.getTarifaHora() == null || nana.getTarifaHora().compareTo(BigDecimal.ZERO) <= 0) {
+        if (nana.getTarifaHora() == null || nana.getTarifaHora().compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("La tarifa por hora debe ser mayor a cero");
         }
-        // Asignación de estados 
+        // Asignación de estados
         nana.setTipoUsuario("NANA");
         if (nana.getDisponibilidad() == null) {
             nana.setDisponibilidad("DISPONIBLE"); // por defecto, la nana está disponible
         }
-        
+
         nana.setVerificado(false); // Requiere aprobación administrativa posterior
         nana.setRatingPromedio(BigDecimal.ZERO);
         nana.setCantidadReviews(0);
@@ -56,11 +53,18 @@ public class NanaServiceImpl implements NanaService {
     @Override
     public List<Nana> listarNanasDisponibles() {
         List<Nana> todasLasNanas = nanaRepositoryPort.obtenerTodas();
-        
+
         // solo disponibles
         return todasLasNanas.stream()
                 .filter(nana -> "DISPONIBLE".equals(nana.getDisponibilidad()))
                 .collect(Collectors.toList());
     }
-    
+
+    @Override
+    public Nana obtenerNanaPorId(Integer idNana) {
+
+        return nanaRepositoryPort.buscarNanaPorId(idNana);
+
+    }
+
 }

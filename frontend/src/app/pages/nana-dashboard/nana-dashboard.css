@@ -243,3 +243,69 @@ grid-template-columns:1fr;
 }
 
 }
+
+.solicitud-card{
+
+    padding:15px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
+
+.botones{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.btn-aceptar{
+
+    background:#28a745;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.btn-aceptar:hover{
+
+    background:#218838;
+
+}
+
+.btn-rechazar{
+
+    background:#dc3545;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.btn-rechazar:hover{
+
+    background:#c82333;
+
+}

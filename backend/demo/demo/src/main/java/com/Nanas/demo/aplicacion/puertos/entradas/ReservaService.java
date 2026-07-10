@@ -1,5 +1,7 @@
 package com.Nanas.demo.aplicacion.puertos.entradas;
 
+import java.util.List;
+
 import com.Nanas.demo.dominio.modelos.Reserva;
 import com.Nanas.demo.dominio.modelos.Ubicacion;
 
@@ -16,4 +18,8 @@ public interface ReservaService {
     void calificarServicio(Integer idReserva, Integer rating, String comentario);
 
     Ubicacion buscarUltimaUbicacionUsuario(Integer idUsuario);
+
+    List<Reserva> obtenerPendientesNana(Integer idNana);
+
+    List<Reserva> obtenerReservasCliente(Integer idCliente);
 }

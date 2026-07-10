@@ -1,6 +1,9 @@
-import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+
+import { ReservaService } from '../../servicios/reserva';
+import { Reserva } from '../../modelos/reserva';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -19,20 +22,45 @@ export class ClienteDashboard implements OnInit {
   nombre = '';
   apellido = '';
 
-  constructor(private router: Router) {}
+  reservas: Reserva[] = [];
+
+  constructor(
+    private router: Router,
+    private reservaService: ReservaService,
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
 
-    if (isPlatformBrowser(this.platformId)) {
-
-      this.nombre = localStorage.getItem('usuario_nombre') || '';
-
-      this.apellido = localStorage.getItem('usuario_apellido') || '';
-
-      console.log("Nombre:", this.nombre);
-      console.log("Apellido:", this.apellido);
-
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+
+    this.nombre = usuario.nombre || '';
+    this.apellido = usuario.apellido || '';
+
+    if (!usuario.idCliente) {
+      return;
+    }
+
+    this.reservaService.obtenerReservasCliente(usuario.idCliente)
+      .subscribe({
+        next: (data) => {
+          console.log("LLEGÓ DEL BACK:", data);
+
+          this.reservas = data;
+
+          this.cd.detectChanges();
+
+          console.log("RESERVAS COMPONENTE:", this.reservas);
+
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
 
   }
 

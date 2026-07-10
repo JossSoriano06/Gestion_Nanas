@@ -159,3 +159,31 @@
     color:#667085;
 
 }
+
+.btn-detalle{
+
+    margin-top:18px;
+    background:#4f7cff;
+    color:#fff;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-detalle:hover{
+
+    background:#315fe2;
+
+    transform:translateY(-2px);
+
+}
