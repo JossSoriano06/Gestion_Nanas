@@ -18,6 +18,8 @@ import { PerfilCliente } from './pages/perfil-cliente/perfil-cliente';
 import { Favoritos } from './pages/favoritos/favoritos';
 import { VerperfilNana } from './pages/verperfil-nana/verperfil-nana';
 
+import { UbicacionComponent } from './pages/ubicacion/ubicacion';
+
 export const routes: Routes = [
 
   { path: '', component: Home },
@@ -98,10 +100,16 @@ export const routes: Routes = [
     path: 'dashboard-cliente',
     component: ClienteDashboard
   },
+   {
+  path: 'ubicacion/:idNana',
+  component: UbicacionComponent
+},
 
   {
     path: '**',
     redirectTo: ''
   }
+
+
 
 ];

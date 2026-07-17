@@ -40,5 +40,26 @@ export class ReservaService {
   obtenerReservasCliente(idCliente: number) {
     return this.http.get<Reserva[]>(`${this.api}/cliente/${idCliente}`);
   }
+  iniciarServicio(idReserva: number) {
+
+  return this.http.patch(
+
+    `${this.api}/${idReserva}/iniciar`,
+
+    {}
+
+  );
+
+}
+
+obtenerReservasNana(idNana:number){
+
+    return this.http.get<Reserva[]>(
+
+        `${this.api}/nana/${idNana}`
+
+    );
+
+}
 
 }

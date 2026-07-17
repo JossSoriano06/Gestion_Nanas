@@ -9,6 +9,7 @@ import { NanaService } from '../../servicios/nana';
 import { Nana } from '../../modelos/nana';
 
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-buscar',
@@ -17,7 +18,8 @@ import { Router } from '@angular/router';
     CommonModule,
     FormsModule,
     NavbarCliente,
-    Footer
+    Footer,
+    MatIconModule
   ],
   templateUrl: './buscar.html',
   styleUrl: './buscar.css'

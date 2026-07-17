@@ -22,4 +22,6 @@ public interface ReservaService {
     List<Reserva> obtenerPendientesNana(Integer idNana);
 
     List<Reserva> obtenerReservasCliente(Integer idCliente);
+
+    List<Reserva> obtenerReservasNana(Integer idNana);
 }

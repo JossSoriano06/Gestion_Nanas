@@ -1,113 +1,108 @@
-/* ===========================
-   RESET
-=========================== */
+/*=============================
+            RESET
+==============================*/
 
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
-}
-
-a{
-    text-decoration:none;
-
-    cursor:pointer;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    color:#111827
 
 }
 
-
-
-/* ===========================
-   NAVBAR
-=========================== */
+/*=============================
+          NAVBAR
+==============================*/
 
 .navbar{
-
-    width:100%;
-
-    display:flex;
-
-    gap: 30px;  
-
-    display:flex;
-
-    align-items:center;
-
-    padding:18px 70px;
-
-    background:#FFFFFF;
-
-    box-shadow:0 2px 12px rgba(0,0,0,.08);
 
     position:sticky;
 
     top:0;
 
-    z-index:1000;
+    z-index:999;
+
+    height:82px;
+
+    padding:0 60px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid #eef2f7;
+
+    box-shadow:0 10px 30px rgba(15,23,42,.06);
 
 }
 
-/* ===========================
-   LOGO
-=========================== */
+/*=============================
+            LOGO
+==============================*/
 
 .logo{
-
-    font-size:18px;
-
-    font-weight:700;
-
-    color:#2563EB;
-
-    cursor:pointer;
-
-    white-space:nowrap;
-
-    transition:.3s;
-
-}
-
-.logo:hover{
-
-    color:#1D4ED8;
-
-}
-
-/* ===========================
-   MENÚ
-=========================== */
-
-.menu{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
+    gap:12px;
 
-    gap:45px;
+    cursor:pointer;
 
-    flex:1;
+}
 
-    margin:0 50px;
+.logo span{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+}
+
+.logo mat-icon{
+
+    font-size:36px;
+
+    width:36px;
+
+    height:36px;
+
+    color:#2563eb;
+
+}
+
+/*=============================
+            MENU
+==============================*/
+
+.menu{
+
+    display:flex;
+
+    gap:38px;
 
 }
 
 .menu a{
 
+    position:relative;
+
+    color:#475569;
+
     text-decoration:none;
 
-    color:#374151;
-
-    font-size:17px;
-
-    font-weight:500;
+    font-weight:600;
 
     transition:.3s;
 
@@ -115,13 +110,41 @@ a{
 
 .menu a:hover{
 
-    color:#2563EB;
+    color:#2563eb;
 
 }
 
-/* ===========================
-   ACCIONES
-=========================== */
+.menu a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:3px;
+
+    background:#2563eb;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.menu a:hover::after{
+
+    width:100%;
+
+}
+
+/*=============================
+            ACCIONES
+==============================*/
 
 .acciones{
 
@@ -129,15 +152,105 @@ a{
 
     align-items:center;
 
-    gap:18px;
+    gap:15px;
 
 }
 
-/* ===========================
-   USUARIO
-=========================== */
+/*=============================
+            USUARIO
+==============================*/
 
-.bienvenido{
+.usuario{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:#f8fafc;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+}
+
+.usuario small{
+
+    display:block;
+
+    color:#94a3b8;
+
+    font-size:12px;
+
+}
+
+.usuario strong{
+
+    color:#1e293b;
+
+}
+
+.avatar{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+/*=============================
+            BOTONES
+==============================*/
+
+.btn-login{
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    border:1px solid #dbe4f0;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-login:hover{
+
+    background:#f8fafc;
+
+    border-color:#2563eb;
+
+    color:#2563eb;
+
+}
+
+.btn-register,
+
+.btn-dashboard{
 
     display:flex;
 
@@ -145,165 +258,77 @@ a{
 
     gap:8px;
 
-    font-size:16px;
-
-    font-weight:600;
-
-    color:#344054;
-
-    white-space:nowrap;
-
-}
-
-/* ===========================
-   BOTÓN LOGIN
-=========================== */
-
-.btn-login{
-
     border:none;
-
-    background:none;
 
     cursor:pointer;
 
-    color:#111827;
+    padding:13px 22px;
 
-    font-size:15px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-    width: 134px;
-
-}
-
-.btn-login:hover{
-
-    color:#2563EB;
-
-}
-
-/* ===========================
-   BOTÓN REGISTRARSE
-=========================== */
-
-.btn-register{
-
-    background:#2563EB;
+    border-radius:14px;
 
     color:white;
 
-    border:none;
+    font-weight:700;
 
-    padding:13px 24px;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
 
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:15px;
-
-    font-weight:600;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
 
     transition:.3s;
 
 }
 
-.btn-register:hover{
-
-    background:#1D4ED8;
-
-}
-
-/* ===========================
-   BOTÓN DASHBOARD
-=========================== */
-
-.btn-dashboard{
-
-    background:#5B7DB1;
-
-    color:white;
-
-    border:none;
-
-    padding:13px 24px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
+.btn-register:hover,
 
 .btn-dashboard:hover{
 
-    background:#45679C;
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 35px rgba(37,99,235,.35);
 
 }
 
-/* ===========================
-   RESPONSIVE TABLET
-=========================== */
+/*=============================
+          RESPONSIVE
+==============================*/
 
-@media(max-width:1100px){
-
-    .navbar{
-
-        padding:18px 30px;
-
-    }
-
-    .menu{
-
-        gap:25px;
-
-        margin:0 20px;
-
-    }
-
-}
-
-/* ===========================
-   RESPONSIVE MÓVIL
-=========================== */
-
-@media(max-width:900px){
+@media(max-width:1000px){
 
     .navbar{
 
-        flex-direction:column;
+        flex-wrap:wrap;
 
-        gap:20px;
+        height:auto;
 
         padding:20px;
 
+        gap:20px;
+
     }
 
     .menu{
 
-        flex-wrap:wrap;
+        width:100%;
 
         justify-content:center;
 
-        gap:18px;
+        flex-wrap:wrap;
 
-        margin:0;
+        gap:20px;
 
     }
 
+}
+
+@media(max-width:700px){
+
     .acciones{
 
-        flex-wrap:wrap;
+        width:100%;
 
         justify-content:center;
+
+        flex-wrap:wrap;
 
     }
 

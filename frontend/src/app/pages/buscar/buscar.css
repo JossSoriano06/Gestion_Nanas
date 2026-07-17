@@ -89,15 +89,25 @@
     transform:translateY(-8px);
 }
 
-.foto{
+.foto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 0px;
+}
 
-    font-size:70px;
+.foto mat-icon {
+  font-size: 95px;
+  height: 95px;
+  width: 95px;
 
-    margin-bottom:15px;
+  color: #e96a16;
 }
 
 .card h3{
-    margin-top: 10px;
+
     margin-bottom: 18px;
     font-size: 24px;
     color: #344054;
@@ -117,7 +127,7 @@
 
     border-radius:12px;
 
-    background:#8CBFA3;
+    background:#4baf64;
 
     color:white;
 
@@ -136,7 +146,4 @@
 
 }
 
-.foto{
-    font-size: 90px;
-    margin-bottom: 20px;
-}
+

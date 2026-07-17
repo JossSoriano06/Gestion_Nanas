@@ -50,10 +50,14 @@ a {
 /* ===========================
    ACCIONES
 =========================== */
-.acciones {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.acciones{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
 }
 
 /* ===========================
@@ -113,15 +117,15 @@ a {
     .navbar {
         padding: 18px 20px; /* Reduce los lados en pantallas pequeñas */
     }
-    
+
     .acciones {
         gap: 10px;
     }
-    
+
     .usuario {
         font-size: 14px;
     }
-    
+
     .btn-register, .btn-login {
         padding: 10px 16px;
         font-size: 14px;

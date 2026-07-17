@@ -181,4 +181,17 @@ public class ReservaController {
                 reservaService.obtenerReservasCliente(idCliente));
 
     }
+      
+    //para encontrar todas las reservas a pesar de los estados 
+    @GetMapping("/nana/{idNana}")
+        public ResponseEntity<List<Reserva>> obtenerReservasNana(
+        @PathVariable Integer idNana){
+
+    return ResponseEntity.ok(
+
+        reservaService.obtenerReservasNana(idNana)
+
+    );
+
+}
 }

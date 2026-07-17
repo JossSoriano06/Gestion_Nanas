@@ -4,13 +4,15 @@ import { Router, RouterLink } from '@angular/router';
 
 import { ReservaService } from '../../servicios/reserva';
 import { Reserva } from '../../modelos/reserva';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cliente-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    MatIconModule
   ],
   templateUrl: './cliente-dashboard.html',
   styleUrl: './cliente-dashboard.css'

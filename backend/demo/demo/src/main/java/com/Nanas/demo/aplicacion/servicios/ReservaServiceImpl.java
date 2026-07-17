@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.Nanas.demo.aplicacion.puertos.entradas.NotificacionService;
 import com.Nanas.demo.aplicacion.puertos.entradas.ReservaService;
 import com.Nanas.demo.dominio.modelos.Nana;
 import com.Nanas.demo.dominio.modelos.Reserva;
@@ -16,21 +18,20 @@ import com.Nanas.demo.dominio.puertos.salidas.ReservaRepositoryPort;
 import com.Nanas.demo.dominio.puertos.salidas.ReviewRepositoryPort;
 import com.Nanas.demo.dominio.puertos.salidas.UsuarioRepositoryPort;
 
-import org.springframework.transaction.annotation.Transactional;
-
 @Service
 public class ReservaServiceImpl implements ReservaService {
 
     private final ReservaRepositoryPort reservaRepositoryPort;
     private final ReviewRepositoryPort reviewRepositoryPort;
     private final UsuarioRepositoryPort usuarioRepositoryPort;
+     
+    private final NotificacionService notificacionService;
 
-    public ReservaServiceImpl(ReservaRepositoryPort reservaRepositoryPort, 
-                              ReviewRepositoryPort reviewRepositoryPort,
-                              UsuarioRepositoryPort usuarioRepositoryPort) {
+    public ReservaServiceImpl(ReservaRepositoryPort reservaRepositoryPort, ReviewRepositoryPort reviewRepositoryPort, UsuarioRepositoryPort usuarioRepositoryPort, NotificacionService notificacionService) {
         this.reservaRepositoryPort = reservaRepositoryPort;
         this.reviewRepositoryPort = reviewRepositoryPort;
         this.usuarioRepositoryPort = usuarioRepositoryPort;
+        this.notificacionService = notificacionService;
     }
 
     @Override
@@ -83,6 +84,24 @@ public class ReservaServiceImpl implements ReservaService {
         }
         
         reservaRepositoryPort.actualizarEstadoReserva(idReserva, "ACEPTADA");
+
+            Integer idUsuarioCliente = usuarioRepositoryPort.obtenerIdUsuarioCliente(
+        reserva.getIdCliente());
+
+        notificacionService.crearNotificacion(
+
+        idUsuarioCliente,
+
+        "Reserva aceptada",
+
+        "La nana aceptó tu solicitud. Ya puedes realizar el pago.",
+
+        "RESERVA"
+
+);
+
+        
+        
     }
 
     @Override
@@ -113,6 +132,20 @@ public class ReservaServiceImpl implements ReservaService {
         }
         
         reservaRepositoryPort.actualizarEstadoReserva(idReserva, "EN_PROGRESO");
+        Integer idUsuarioCliente = usuarioRepositoryPort.obtenerIdUsuarioCliente(
+                reserva.getIdCliente());
+
+        notificacionService.crearNotificacion(
+
+        idUsuarioCliente,
+
+        "Servicio iniciado",
+
+        "La nana confirmó el inicio del servicio y ya se encuentra atendiendo tu solicitud.",
+
+        "SERVICIO"
+
+);
     }
 
     @Override
@@ -121,10 +154,25 @@ public class ReservaServiceImpl implements ReservaService {
         if (reserva == null) {
             throw new IllegalStateException("La reserva no existe");
         }
-        if(!"EN PROCESO".equals(reserva.getEstadoReserva())){
-            throw new IllegalStateException("Solo se puede finalizar un servicio que esté EN_PROGRESO.");
-        }
+        if(!"EN_PROGRESO".equals(reserva.getEstadoReserva())){
+        throw new IllegalStateException( "Solo se puede finalizar un servicio que esté EN_PROGRESO.");
+}
         reservaRepositoryPort.actualizarEstadoReserva(idReserva, "FINALIZADA");
+
+        Integer idUsuarioCliente = usuarioRepositoryPort.obtenerIdUsuarioCliente(
+                reserva.getIdCliente());
+
+        notificacionService.crearNotificacion(
+
+        idUsuarioCliente,
+
+        "Servicio finalizado",
+
+        "El servicio terminó correctamente. Ahora puedes calificar a la nana.",
+
+        "SERVICIO"
+
+);
     }
 
     @Override
@@ -140,6 +188,20 @@ public class ReservaServiceImpl implements ReservaService {
         }
 
         reservaRepositoryPort.actualizarEstadoPago(idReserva, "PAGADO");
+        Integer idUsuarioNana = usuarioRepositoryPort.obtenerIdUsuarioNana(
+                reserva.getIdNana());
+
+        notificacionService.crearNotificacion(
+
+        idUsuarioNana,
+
+        "Pago recibido",
+
+        "El cliente realizó el pago correctamente. Ya puedes prepararte para el servicio.",
+
+        "PAGO"
+
+);
 
     }
 
@@ -202,6 +264,12 @@ public class ReservaServiceImpl implements ReservaService {
     public List<Reserva> obtenerReservasCliente(Integer idCliente) {
 
         return reservaRepositoryPort.obtenerReservasCliente(idCliente);
+
+    }
+
+    @Override
+    public List<Reserva> obtenerReservasNana(Integer idNana) {
+        return reservaRepositoryPort.obtenerReservasNana(idNana);
 
     }
 }

@@ -1,0 +1,90 @@
+<div class="contenedor" (click)="detener($event)">
+
+    <div class="campana" (click)="toggle($event)">
+
+        <mat-icon>notifications</mat-icon>
+
+        <span
+            class="badge"
+            *ngIf="pendientes > 0">
+
+            {{ pendientes }}
+
+        </span>
+
+    </div>
+
+    <div
+        class="panel"
+        *ngIf="mostrar">
+
+        <div class="titulo">
+
+            <h3><mat-icon>notifications</mat-icon> Notificaciones</h3>
+
+            <span>{{ pendientes }} nuevas</span>
+
+        </div>
+
+        <div
+            class="vacio"
+            *ngIf="notificaciones.length == 0">
+
+            No tienes notificaciones.
+
+        </div>
+
+        <div
+            *ngFor="let n of notificaciones"
+            class="item"
+            [class.leida]="n.leida"
+            (click)="marcarLeida(n)">
+
+            <div class="icono">
+
+                <mat-icon *ngIf="n.tipo=='PAGO'">payment</mat-icon>
+
+                <mat-icon *ngIf="n.tipo=='RESERVA'">calendar_today</mat-icon>
+
+                <mat-icon *ngIf="n.tipo=='SERVICIO'">check_circle</mat-icon >
+
+                <mat-icon *ngIf="n.tipo=='REVIEW'">star</mat-icon>
+
+                <span *ngIf="n.tipo!='PAGO'
+                              && n.tipo!='RESERVA'
+                              && n.tipo!='SERVICIO'
+                              && n.tipo!='REVIEW'">
+
+                    <mat-icon>notifications</mat-icon>
+
+                </span>
+
+            </div>
+
+            <div class="contenido">
+
+                <strong>
+
+                    {{ n.titulo }}
+
+                </strong>
+
+                <p>
+
+                    {{ n.mensaje }}
+
+                </p>
+
+                <small>
+
+                    {{ n.fecha }}
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

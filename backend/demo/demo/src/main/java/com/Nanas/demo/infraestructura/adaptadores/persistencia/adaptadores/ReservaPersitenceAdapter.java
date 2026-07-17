@@ -208,4 +208,31 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
 
     }
 
+   
+        @Override
+    public List<Reserva> obtenerReservasNana(Integer idNana) {
+
+    List<ReservaEntity> entities = reservaRepository.findByNana(idNana);
+
+    return entities.stream().map(entity -> {
+
+        Reserva reserva = new Reserva();
+
+        reserva.setIdReserva(entity.getIdReserva());
+        reserva.setIdCliente(entity.getIdCliente());
+        reserva.setIdNana(entity.getIdNana());
+        reserva.setFechaInicio(entity.getFechaInicio());
+        reserva.setFechaFin(entity.getFechaFin());
+        reserva.setMontoTotal(entity.getMontoTotal());
+        reserva.setEstadoReserva(entity.getEstadoReserva());
+        reserva.setEstadoPago(entity.getEstadoPago());
+        reserva.setFechaReserva(entity.getFechaReserva());
+
+        return reserva;
+
+    }).toList();
+
+    }
+    
+
 }

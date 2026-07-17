@@ -153,3 +153,420 @@
     cursor:pointer;
 
 }
+
+
+
+/*modal*/
+
+.modal-overlay{
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,.55);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    overflow-y:auto;
+
+    z-index:9999;
+
+    backdrop-filter:blur(5px);
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+.modal-pago{
+
+    width:480px;
+
+    max-width:100%;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:white;
+
+    border-radius:20px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+
+}
+
+@keyframes subir{
+
+    from{
+
+        transform:translateY(40px);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+        opacity:1;
+
+    }
+
+}
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px 28px;
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.modal-header h2{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+.cerrar{
+
+    border:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+/* ===================================
+            TARJETA
+=================================== */
+
+.tarjeta{
+
+    margin:28px;
+
+    border-radius:18px;
+
+    padding:26px;
+
+    background:linear-gradient(135deg,#1e40af,#2563eb,#60a5fa);
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 25px rgba(37,99,235,.35);
+
+}
+
+.tarjeta::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    right:-60px;
+
+    top:-80px;
+
+}
+
+.chip{
+
+    width:58px;
+
+    height:42px;
+
+    background:linear-gradient(#f7d774,#d8a93c);
+
+    border-radius:8px;
+
+    margin-bottom:28px;
+
+}
+
+.numero{
+
+    font-size:24px;
+
+    letter-spacing:3px;
+
+    margin-bottom:30px;
+
+    font-weight:600;
+
+}
+
+.fila{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.fila small{
+
+    display:block;
+
+    opacity:.8;
+
+    font-size:12px;
+
+}
+
+.fila h4{
+
+    margin-top:4px;
+
+    font-weight:600;
+
+}
+
+/* ===================================
+           FORMULARIO
+=================================== */
+
+.formulario{
+
+    padding:0 28px 28px;
+
+}
+
+.formulario label{
+
+    display:block;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    color:#334155;
+
+}
+
+.formulario input{
+
+    width:100%;
+
+    padding:13px 15px;
+
+    border:1px solid #dbe3ee;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.formulario input:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+.doble{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+}
+
+.total{
+
+    margin-top:28px;
+
+    padding:16px 18px;
+
+    border-radius:12px;
+
+    background:#eff6ff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:18px;
+
+}
+
+.total strong{
+
+    color:#2563eb;
+
+    font-size:24px;
+
+}
+
+/* ===================================
+           BOTONES
+=================================== */
+
+.botones{
+
+    margin-top:28px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:14px;
+
+}
+
+.btn-cancelar{
+
+    padding:13px 24px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#e5e7eb;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.btn-cancelar:hover{
+
+    background:#d1d5db;
+
+}
+
+.btn-pagar-modal{
+
+    padding:13px 26px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-pagar-modal:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+
+}
+
+/* ===================================
+           RESPONSIVE
+=================================== */
+
+@media(max-width:600px){
+
+    .modal-pago{
+
+        width:95%;
+
+    }
+
+    .numero{
+
+        font-size:18px;
+
+        letter-spacing:2px;
+
+    }
+
+    .doble{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .botones{
+
+        flex-direction:column;
+
+    }
+
+    .btn-cancelar,
+
+    .btn-pagar-modal{
+
+        width:100%;
+
+    }
+
+}

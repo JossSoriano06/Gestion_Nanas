@@ -1,25 +1,39 @@
 <header class="navbar">
 
     <div class="logo">
-        Nanas Universitarias
+
+        <mat-icon>child_friendly</mat-icon> Nanas Universitarias
+
     </div>
 
     <div class="acciones">
+
+        <!-- Campana -->
+
+        <app-notificaciones></app-notificaciones>
+
         <span class="usuario">
-            👋 {{nombre}}
+
+            <mat-icon>person</mat-icon> {{nombre}}
+
         </span>
 
-        <button 
-            class="btn-register" 
+        <button
+            class="btn-register"
             (click)="irDashboard()">
+
             Mi Dashboard
+
         </button>
 
-        <button 
-            class="btn-login" 
+        <button
+            class="btn-login"
             (click)="cerrarSesion()">
+
             Cerrar sesión
+
         </button>
+
     </div>
 
 </header>

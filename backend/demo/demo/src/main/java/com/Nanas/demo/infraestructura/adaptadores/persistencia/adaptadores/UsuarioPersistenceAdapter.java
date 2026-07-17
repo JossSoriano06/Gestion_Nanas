@@ -10,33 +10,40 @@ import org.springframework.stereotype.Component;
 
 import com.Nanas.demo.dominio.modelos.Cliente;
 import com.Nanas.demo.dominio.modelos.Nana;
+import com.Nanas.demo.dominio.modelos.Ubicacion;
 import com.Nanas.demo.dominio.modelos.Usuario;
 import com.Nanas.demo.dominio.puertos.salidas.NanaRepositoryPort;
+import com.Nanas.demo.dominio.puertos.salidas.UbicacionRepositoryPort;
 import com.Nanas.demo.dominio.puertos.salidas.UsuarioRepositoryPort;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.entidades.ClienteEntity;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.entidades.DireccionEntity;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.entidades.NanaEntity;
+import com.Nanas.demo.infraestructura.adaptadores.persistencia.entidades.UbicacionEntity;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.entidades.UsuarioEntity;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.SpringDataClienteRepository;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.SpringDataDireccionRepository;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.SpringDataNanaRepository;
+import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.SpringDataUbicacionRepositoty;
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.SpringDataUsuarioRepository;
 
 @Component
-public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRepositoryPort {
+public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRepositoryPort, UbicacionRepositoryPort {
 
     private final SpringDataUsuarioRepository usuarioRepository;
     private final SpringDataClienteRepository clienteRepository;
     private final SpringDataNanaRepository nanaRepository;
     private final SpringDataDireccionRepository direccionRepository;
+    private final SpringDataUbicacionRepositoty ubicacionRepository;
 
+    
     public UsuarioPersistenceAdapter(SpringDataUsuarioRepository usuarioRepository,
             SpringDataClienteRepository clienteRepository, SpringDataNanaRepository nanaRepository,
-            SpringDataDireccionRepository direccionRepository) {
+            SpringDataDireccionRepository direccionRepository, SpringDataUbicacionRepositoty ubicacionRepository) {
         this.usuarioRepository = usuarioRepository;
         this.clienteRepository = clienteRepository;
         this.nanaRepository = nanaRepository;
         this.direccionRepository = direccionRepository;
+        this.ubicacionRepository = ubicacionRepository;
     }
 
     @Override
@@ -384,5 +391,66 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         actualizado.setEstadoCuenta(guardado.getEstadoCuenta());
 
         return actualizado;
+    }
+
+    @Override
+    public Integer obtenerIdUsuarioCliente(Integer idCliente) {
+        ClienteEntity cliente = clienteRepository
+            .findById(idCliente)
+            .orElseThrow(() ->
+                new RuntimeException("Cliente no encontrado."));
+
+    return cliente.getUsuario().getIdUsuario();
+    }
+
+    @Override
+    public Integer obtenerIdUsuarioNana(Integer idNana) {
+        NanaEntity nana = nanaRepository
+            .findById(idNana)
+            .orElseThrow(() ->
+                new RuntimeException("Nana no encontrada."));
+
+    return nana.getUsuario().getIdUsuario();
+    }
+
+    @Override
+    public Ubicacion guardar(Ubicacion ubicacion) {
+        UbicacionEntity entity = new UbicacionEntity();
+
+    entity.setIdUsuario(ubicacion.getIdUsuario());
+
+    entity.setLatitud(ubicacion.getLatitud());
+
+    entity.setLongitud(ubicacion.getLongitud());
+
+    UbicacionEntity guardada = ubicacionRepository.save(entity);
+
+    ubicacion.setIdUbicacion(guardada.getIdUbicacion());
+
+    ubicacion.setFechaRegistro(guardada.getFechaRegistro());
+
+    return ubicacion;
+    }
+
+    @Override
+    public Ubicacion obtenerUltimaUbicacion(Integer idUsuario) {
+        UbicacionEntity entity = ubicacionRepository
+            .findFirstByIdUsuarioOrderByFechaRegistroDesc(idUsuario)
+            .orElseThrow(() ->
+                    new IllegalArgumentException("No existe ubicación para el usuario."));
+
+    Ubicacion ubicacion = new Ubicacion();
+
+    ubicacion.setIdUbicacion(entity.getIdUbicacion());
+
+    ubicacion.setIdUsuario(entity.getIdUsuario());
+
+    ubicacion.setLatitud(entity.getLatitud());
+
+    ubicacion.setLongitud(entity.getLongitud());
+
+    ubicacion.setFechaRegistro(entity.getFechaRegistro());
+
+    return ubicacion;
     }
 }

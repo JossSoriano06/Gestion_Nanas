@@ -1,12 +1,16 @@
 import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router'; // Quitamos RouterLink de aquí porque ya no se usa en el HTML
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Notificaciones } from '../notificaciones/notificaciones';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-navbar-cliente',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    Notificaciones,
+    MatIconModule
   ],
   templateUrl: './navbar-cliente.html',
   styleUrl: './navbar-cliente.css'
@@ -21,11 +25,18 @@ export class NavbarCliente implements OnInit {
   constructor(private router: Router){}
 
   ngOnInit(): void {
-    if(isPlatformBrowser(this.platformId)){
-      this.nombre = localStorage.getItem('usuario_nombre') || '';
-      this.rol = localStorage.getItem('usuario_rol') || '';
-    }
+
+  if (!isPlatformBrowser(this.platformId)) {
+    return;
   }
+
+  const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+
+  this.nombre = usuario.nombre || '';
+
+  this.rol = usuario.tipoUsuario || '';
+
+}
 
   cerrarSesion(){
     localStorage.clear();

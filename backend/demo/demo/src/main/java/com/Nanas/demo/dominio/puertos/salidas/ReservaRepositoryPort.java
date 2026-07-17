@@ -1,10 +1,10 @@
 package com.Nanas.demo.dominio.puertos.salidas;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.Nanas.demo.dominio.modelos.Reserva;
 import com.Nanas.demo.dominio.modelos.Ubicacion;
-import java.util.List;
 
 public interface ReservaRepositoryPort {
 
@@ -19,4 +19,5 @@ public interface ReservaRepositoryPort {
     List<Reserva> obtenerPendientesNana(Integer idNana);
     
     List<Reserva> obtenerReservasCliente(Integer idCliente);
+    List<Reserva> obtenerReservasNana(Integer idNana);
 } 

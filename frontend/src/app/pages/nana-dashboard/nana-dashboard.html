@@ -7,21 +7,21 @@
 
         <ul>
 
-            <li class="activo">🏠 Dashboard</li>
+            <li class="activo"><mat-icon color="primary">home</mat-icon> Dashboard</li>
 
-            <li>👤 Mi Perfil</li>
+            <li><mat-icon>person</mat-icon> Mi Perfil</li>
 
-            <li>📅 Solicitudes</li>
+            <li><mat-icon>calendar_today</mat-icon> Solicitudes</li>
 
-            <li>📆 Disponibilidad</li>
+            <li><mat-icon>today</mat-icon> Disponibilidad</li>
 
-            <li>⭐ Reseñas</li>
+            <li><mat-icon>star</mat-icon> Reseñas</li>
 
-            <li>💰 Ganancias</li>
+            <li><mat-icon>money</mat-icon> Ganancias</li>
 
-            <li>⚙ Configuración</li>
+            <li><mat-icon>settings</mat-icon> Configuración</li>
 
-            <li (click)="cerrarSesion()" style="cursor: pointer;">🚪 Cerrar sesión</li>
+            <li (click)="cerrarSesion()" style="cursor: pointer;"><mat-icon>logout</mat-icon>  Cerrar sesión</li>
 
         </ul>
 
@@ -30,20 +30,34 @@
     <!-- Contenido -->
     <main class="contenido">
 
+        <div class="encabezado">
+
+    <div>
+
         <h1>
+
             Hola {{ nombre }} {{ apellido }}
+
         </h1>
 
         <p>
+
             Bienvenida nuevamente a tu panel de cuidadora.
+
         </p>
+
+    </div>
+
+    <app-notificaciones></app-notificaciones>
+
+      </div>
 
         <!-- Tarjetas -->
         <section class="cards">
 
             <div class="card">
 
-                <h3>⭐ Calificación</h3>
+                <h3><mat-icon>star</mat-icon> Calificación</h3>
 
                 <span>5.0</span>
 
@@ -51,7 +65,7 @@
 
             <div class="card">
 
-                <h3>📅 Solicitudes</h3>
+                <h3><mat-icon>calendar_today</mat-icon> Solicitudes</h3>
 
                 <span>0</span>
 
@@ -59,7 +73,7 @@
 
             <div class="card">
 
-                <h3>💰 Ganancias</h3>
+                <h3><mat-icon>money</mat-icon> Ganancias</h3>
 
                 <span>S/. 0.00</span>
 
@@ -67,7 +81,7 @@
 
             <div class="card">
 
-                <h3>🟢 Estado</h3>
+                <h3><mat-icon>today</mat-icon> Estado</h3>
 
                 <span>Disponible</span>
 
@@ -81,9 +95,9 @@
             <!-- Solicitudes -->
             <div class="panel">
 
-                <h2>📅 Solicitudes pendientes</h2>
+                <h2><mat-icon>calendar_today</mat-icon> Solicitudes pendientes</h2>
 
-                
+
                 <p>Total solicitudes: {{ solicitudes.length }}</p>
 
                 <div *ngIf="solicitudes.length == 0">
@@ -145,10 +159,84 @@
 
             </div>
 
+            <!-- Servicios Activos -->
+
+<div class="panel">
+
+    <h2>
+
+        <mat-icon>play_circle</mat-icon>
+
+        Servicios activos
+
+    </h2>
+
+    <div *ngIf="serviciosActivos.length==0">
+
+        <p>No tienes servicios listos para iniciar.</p>
+
+    </div>
+
+    <div
+        *ngFor="let reserva of serviciosActivos"
+        class="solicitud-card">
+
+        <p>
+
+            <strong>Reserva:</strong>
+
+            #{{reserva.idReserva}}
+
+        </p>
+
+        <p>
+
+            <strong>Cliente:</strong>
+
+            {{reserva.idCliente}}
+
+        </p>
+
+        <p>
+
+            <strong>Inicio:</strong>
+
+            {{reserva.fechaInicio}}
+
+        </p>
+
+        <p>
+
+            <strong>Monto:</strong>
+
+            S/. {{reserva.montoTotal}}
+
+        </p>
+
+        <p class="estado-pagado">
+
+            ✅ Pago confirmado
+
+        </p>
+
+        <button
+            class="btn-iniciar"
+            (click)="iniciarServicio(reserva.idReserva!)">
+
+            <mat-icon>play_arrow</mat-icon>
+
+            Iniciar servicio
+
+        </button>
+
+    </div>
+
+</div>
+
             <!-- Perfil -->
             <div class="panel">
 
-                <h2>👤 Mi Perfil</h2>
+                <h2><mat-icon>person</mat-icon> Mi Perfil</h2>
 
                 <div class="foto">
 
@@ -182,25 +270,25 @@
 
                 <p>
 
-                    <strong>Universidad:</strong> Próximamente
+                    <strong>Universidad:</strong> UTP
 
                 </p>
 
                 <p>
 
-                    <strong>Carrera:</strong> Próximamente
+                    <strong>Carrera:</strong> sistemas
 
                 </p>
 
                 <p>
 
-                    <strong>Distrito:</strong> Próximamente
+                    <strong>Distrito:</strong> san miguel
 
                 </p>
 
                 <p>
 
-                    <strong>Tarifa:</strong> Próximamente
+                    <strong>Tarifa:</strong> S/. 40
 
                 </p>
 

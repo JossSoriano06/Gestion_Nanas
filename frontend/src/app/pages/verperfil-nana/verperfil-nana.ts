@@ -12,6 +12,9 @@ import { Nana } from '../../modelos/nana';
 import { NavbarCliente } from '../../shared/components/navbar-cliente/navbar-cliente';
 import { Footer } from '../../shared/components/footer/footer';
 
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-verperfil-nana',
   standalone: true,
@@ -39,11 +42,12 @@ export class VerperfilNana implements OnInit {
   montoTotal = 0;
 
   constructor(
-    private route: ActivatedRoute,
-    private nanaService: NanaService,
-    private reservaService: ReservaService,
-    private cd: ChangeDetectorRef
-  ) {}
+  private route: ActivatedRoute,
+  private router: Router,
+  private nanaService: NanaService,
+  private reservaService: ReservaService,
+  private cd: ChangeDetectorRef
+) {}
 
   ngOnInit(): void {
 
@@ -123,39 +127,62 @@ export class VerperfilNana implements OnInit {
 
   }
 
-  confirmarReserva(): void {
+ confirmarReserva(): void {
 
-    if (!this.nana) {
+  if (!this.nana) {
+    return;
+  }
 
+  const reserva: Reserva = {
+
+    idCliente: Number(localStorage.getItem('usuario_id')),
+
+    idNana: this.nana.idNana,
+
+    fechaInicio: this.fechaInicio,
+
+    fechaFin: this.fechaFin,
+
+    montoTotal: this.montoTotal
+
+  };
+
+  Swal.fire({
+    title: '¿Confirmar reserva?',
+    html: `
+      <b>Cuidadora:</b> ${this.nana.nombre} ${this.nana.apellido}<br><br>
+      <b>Inicio:</b> ${this.fechaInicio}<br>
+      <b>Fin:</b> ${this.fechaFin}<br><br>
+      <b>Total:</b> S/. ${this.montoTotal}
+    `,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, reservar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#2563eb',
+    cancelButtonColor: '#d33'
+  }).then((result) => {
+
+    if (!result.isConfirmed) {
       return;
-
     }
-
-    const reserva: Reserva = {
-
-      idCliente: Number(localStorage.getItem('usuario_id')),
-
-      idNana: this.nana.idNana,
-
-      fechaInicio: this.fechaInicio,
-
-      fechaFin: this.fechaFin,
-
-      montoTotal: this.montoTotal
-
-    };
-
-    console.log(reserva);
 
     this.reservaService.crearReserva(reserva).subscribe({
 
-      next: (respuesta) => {
+      next: () => {
 
-        console.log(respuesta);
+        Swal.fire({
+          icon: 'success',
+          title: '¡Reserva enviada!',
+          text: 'La solicitud fue enviada correctamente a la cuidadora.',
+          confirmButtonText: 'Ver mis reservas'
+        }).then(() => {
 
-        alert('✅ Reserva realizada correctamente.');
+          this.mostrarFormulario = false;
 
-        this.mostrarFormulario = false;
+          this.router.navigate(['/reservar']);
+
+        });
 
       },
 
@@ -163,12 +190,26 @@ export class VerperfilNana implements OnInit {
 
         console.error(error);
 
-        alert('❌ No se pudo registrar la reserva.');
+        let mensaje = 'Ocurrió un error al registrar la reserva.';
+
+        if (typeof error.error === 'string') {
+          mensaje = error.error;
+        } else if (error.error?.mensaje) {
+          mensaje = error.error.mensaje;
+        }
+
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo registrar la reserva',
+          text: mensaje,
+          confirmButtonText: 'Entendido'
+        });
 
       }
 
     });
 
-  }
+  });
 
+}
 }

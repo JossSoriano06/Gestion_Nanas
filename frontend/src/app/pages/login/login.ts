@@ -5,13 +5,16 @@ import { CommonModule } from '@angular/common';
 
 import { Auth } from '../../servicios/auth';
 
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatIconModule
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
@@ -53,7 +56,7 @@ export class Login implements OnInit {
       next: (response) => {
 
         console.log(response);
-        
+
         //Guarda el objeto entero de Juan en el navegador como texto string
         localStorage.setItem('usuario', JSON.stringify(response));
 

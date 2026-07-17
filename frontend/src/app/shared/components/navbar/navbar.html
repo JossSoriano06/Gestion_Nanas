@@ -1,61 +1,82 @@
 <header class="navbar">
 
-    <div class="logo">
+    <!-- Logo -->
 
-        Nanas Universitarias
+    <div class="logo" routerLink="/">
+
+        <mat-icon>diversity_3</mat-icon>
+
+        <span>Nanas Universitarias</span>
 
     </div>
 
-    
-        <nav class="navbar"> 
+    <!-- Menú -->
 
-            <a routerLink="/">Inicio</a>
+    <nav class="menu">
 
-            <a routerLink="/buscar">   Buscar Cuidadoras</a>
+        <a routerLink="/">Inicio</a>
 
-            <a routerLink="/como-funciona">¿Cómo funciona?</a>
+        <a routerLink="/login">Buscar cuidadoras</a>
 
-            <a routerLink="/nosotros">Nosotros</a>
+        <a routerLink="/como-funciona">¿Cómo funciona?</a>
 
-            <a routerLink="/contacto"> Contacto</a>
+        <a routerLink="/nosotros">Nosotros</a>
 
-        </nav>
+        <a routerLink="/contacto">Contacto</a>
 
-        <div class="acciones">
+    </nav>
 
-            <ng-container *ngIf="nombre==''; else logueado">
+    <!-- Acciones -->
 
-                <button
+    <div class="acciones">
+
+        <ng-container *ngIf="nombre==''; else logueado">
+
+            <button
                 routerLink="/login"
                 class="btn-login">
 
                 Iniciar sesión
 
-                </button>
+            </button>
 
-                <button
+            <button
                 routerLink="/registro"
                 class="btn-register">
 
                 Registrarse
 
-                </button>
+            </button>
 
-            </ng-container>
+        </ng-container>
 
-            <ng-template #logueado>
+        <ng-template #logueado>
 
-                <span class="usuario">
+            <div class="usuario">
 
-                    👋 {{nombre}}
+                <div class="avatar">
 
-                </span>
+                    {{ nombre.charAt(0).toUpperCase() }}
 
-                <button
-                class="btn-register"
+                </div>
+
+                <div>
+
+                    <small>Bienvenido</small>
+
+                    <strong>{{ nombre }}</strong>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn-dashboard"
                 (click)="irDashboard()">
 
-                Mi Dashboard
+                <mat-icon>dashboard</mat-icon>
+
+                Dashboard
 
             </button>
 
@@ -63,14 +84,12 @@
                 class="btn-login"
                 (click)="cerrarSesion()">
 
-                Cerrar sesión
+                <mat-icon>logout</mat-icon>
 
             </button>
 
         </ng-template>
 
-    
     </div>
-
 
 </header>

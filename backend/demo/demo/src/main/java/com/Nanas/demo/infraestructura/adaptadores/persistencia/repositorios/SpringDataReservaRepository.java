@@ -35,4 +35,13 @@ public interface SpringDataReservaRepository extends JpaRepository<ReservaEntity
                          ORDER BY r.fechaReserva DESC
                      """)
        List<ReservaEntity> findByCliente(@Param("idCliente") Integer idCliente);
+
+
+       @Query("""
+        SELECT r
+        FROM ReservaEntity r
+        WHERE r.idNana = :idNana
+        ORDER BY r.fechaReserva DESC
+        """)
+              List<ReservaEntity> findByNana(@Param("idNana") Integer idNana);
 }

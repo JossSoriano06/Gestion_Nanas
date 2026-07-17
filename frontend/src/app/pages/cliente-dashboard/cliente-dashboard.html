@@ -6,7 +6,7 @@
 
         <div>
 
-            <h1>👋 Hola {{ nombre }} {{ apellido }}</h1>
+            <h1><mat-icon>waving_hand</mat-icon> Hola {{ nombre }} {{ apellido }}</h1>
 
             <p>Nos alegra volver a verte.</p>
 
@@ -24,7 +24,9 @@
 
         <div class="card" routerLink="/buscar">
 
-            <div class="icono">🔎</div>
+            <div class="icono">
+                <mat-icon>search</mat-icon>
+            </div>
 
             <h3>Buscar cuidadoras</h3>
 
@@ -36,7 +38,9 @@
 
         <div class="card" routerLink="/reservar">
 
-            <div class="icono">📅</div>
+            <div class="icono">
+                <mat-icon>calendar_today</mat-icon>
+            </div>
 
             <h3>Mis reservas</h3>
 
@@ -48,7 +52,9 @@
 
         <div class="card" routerLink="/favoritos">
 
-            <div class="icono">❤️</div>
+            <div class="icono">
+                <mat-icon>favorite</mat-icon>
+            </div>
 
             <h3>Favoritos</h3>
 
@@ -62,7 +68,9 @@
 
         <div class="card" routerLink="/perfil-cliente">
 
-            <div class="icono">👤</div>
+            <div class="icono">
+                <mat-icon>person</mat-icon>
+            </div>
 
             <h3>Mi perfil</h3>
 
@@ -82,7 +90,7 @@
 
         <div class="panel">
 
-            <h2>📌 Próxima reserva</h2>
+            <h2><mat-icon>bookmark</mat-icon> Próxima reserva</h2>
 
             <div *ngIf="reservas.length==0" class="vacio">
 
@@ -128,7 +136,7 @@
 
         <div class="panel">
 
-            <h2>📊 Resumen</h2>
+            <h2><mat-icon>bar_chart</mat-icon> Resumen</h2>
 
             <div class="resumen">
 

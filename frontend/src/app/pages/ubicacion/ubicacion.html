@@ -1,0 +1,84 @@
+<app-navbar-cliente></app-navbar-cliente>
+
+<div class="contenedor">
+
+    <h1 class="titulo">
+        <mat-icon>location_on</mat-icon> Seguimiento del servicio
+    </h1>
+
+    <div class="barra-superior">
+
+        <button
+            class="btn-volver"
+            (click)="volver()">
+
+            ← Regresar
+
+        </button>
+
+        <span class="estado">
+
+            <mat-icon>check_circle</mat-icon> Servicio en progreso
+
+        </span>
+
+    </div>
+
+    <div
+        class="card-nana"
+        *ngIf="nana as cuidadora">
+
+        <div class="nombre">
+
+            <mat-icon>person</mat-icon> {{ cuidadora.nombre }}
+            {{ cuidadora.apellido }}
+
+        </div>
+
+        <div class="grid">
+
+            <div>
+
+                <mat-icon>star</mat-icon> {{ cuidadora.ratingPromedio }}
+                ({{ cuidadora.cantidadReviews }} reseñas)
+
+            </div>
+
+            <div>
+
+                <mat-icon>school</mat-icon> {{ cuidadora.carrera }}
+
+            </div>
+
+            <div>
+
+                <mat-icon>location_on</mat-icon>
+                {{ cuidadora.distrito || 'Ubicación privada' }},
+                {{ cuidadora.provincia || '' }}
+
+            </div>
+
+            <div>
+
+                <mat-icon>monetization_on</mat-icon>  S/
+                {{ cuidadora.tarifaHora }}
+                / hora
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        id="map"
+        style="height:500px;width:100%;border-radius:12px;">
+    </div>
+
+    <p class="mensaje">
+
+        La ubicación de la cuidadora se actualiza en tiempo real.
+
+    </p>
+
+</div>

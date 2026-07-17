@@ -21,4 +21,7 @@ public interface UsuarioRepositoryPort {
 
     Cliente actualizarCliente(Integer idUsuario, Cliente cliente);
     
+    Integer obtenerIdUsuarioCliente(Integer idCliente);
+
+    Integer obtenerIdUsuarioNana(Integer idNana);
 }

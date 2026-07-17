@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Auth } from '../../servicios/auth';
 
@@ -16,7 +17,8 @@ import { Auth } from '../../servicios/auth';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatIconModule
   ],
   templateUrl: './registro.html',
   styleUrls: ['./registro.css']

@@ -32,7 +32,7 @@
 
             <h2>
 
-                Reserva #{{ reserva.idReserva }}
+                Reserva {{ reserva.idReserva }}
 
             </h2>
 
@@ -95,22 +95,27 @@
 
             <button
 
-                *ngIf="reserva.estadoReserva=='ACEPTADA'
-                && reserva.estadoPago=='PENDIENTE'"
+              *ngIf="reserva.estadoReserva=='ACEPTADA'
+              && reserva.estadoPago=='PENDIENTE'"
 
-                class="btn-pagar">
+              class="btn-pagar"
 
-                Pagar ahora
+              (click)="abrirPago(reserva)">
 
-            </button>
+              💳 Pagar ahora
 
-            <button
+          </button>
 
-                *ngIf="reserva.estadoPago=='PAGADO'">
+          <button
+         *ngIf="
+        reserva.estadoPago == 'PAGADO' &&
+        reserva.estadoReserva == 'EN_PROGRESO'
+    "
+    (click)="verUbicacion(reserva.idNana)">
 
-                📍 Ver ubicación
+    📍 Ver ubicación
 
-            </button>
+          </button>
 
             <span
 
@@ -137,5 +142,151 @@
     </div>
 
 </section>
+
+<!-- ===========================
+     MODAL DE PAGO
+=========================== -->
+
+<div class="modal-overlay" *ngIf="mostrarPago">
+
+    <div class="modal-pago">
+
+        <div class="modal-header">
+
+            <h2>💳 Pago Seguro</h2>
+
+            <button
+                class="cerrar"
+                (click)="cancelarPago()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <!-- Tarjeta -->
+
+        <div class="tarjeta">
+
+    <div class="logo-card">
+
+        💳 VISA
+
+    </div>
+
+    <div class="chip"></div>
+
+    <div class="numero">
+
+        {{ numeroTarjeta || '**** **** **** ****' }}
+
+    </div>
+
+    <div class="fila">
+
+        <div>
+
+            <small>Titular</small>
+
+            <h4>{{ titular || 'NOMBRE APELLIDO' }}</h4>
+
+        </div>
+
+        <div>
+
+            <small>Expira</small>
+
+            <h4>{{ expiracion || 'MM/AA' }}</h4>
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- Formulario -->
+
+        <div class="formulario">
+
+            <label>Número de tarjeta</label>
+
+            <input
+                maxlength="16"
+                [(ngModel)]="numeroTarjeta"
+                placeholder="4111111111111111">
+
+            <div class="doble">
+
+                <div>
+
+                    <label>Expiración</label>
+
+                    <input
+                        maxlength="5"
+                        [(ngModel)]="expiracion"
+                        placeholder="12/30">
+
+                </div>
+
+                <div>
+
+                    <label>CVV</label>
+
+                    <input
+                        maxlength="3"
+                        [(ngModel)]="cvv"
+                        placeholder="123">
+
+                </div>
+
+            </div>
+
+            <label>Titular</label>
+
+            <input
+                [(ngModel)]="titular"
+                placeholder="Carlos Bendezu">
+
+            <div class="total">
+
+                <span>Total a pagar</span>
+
+                <strong>
+
+                    S/.
+
+                    {{ reservaSeleccionada?.montoTotal }}
+
+                </strong>
+
+            </div>
+
+            <div class="botones">
+
+                <button
+                    class="btn-cancelar"
+                    (click)="cancelarPago()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="btn-pagar-modal"
+                    [disabled]="procesandoPago"
+                    (click)="confirmarPago()">
+
+                    {{ procesandoPago ? 'Procesando...' : 'Confirmar Pago' }}
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <app-footer></app-footer>
