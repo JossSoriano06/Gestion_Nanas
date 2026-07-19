@@ -56,25 +56,7 @@ public class ReservaController {
 
     }
 
-    /*
-     * // crear reserva
-     * 
-     * @PostMapping
-     * public ResponseEntity<?> crearReserva(@RequestBody Reserva reserva) {
-     * 
-     * try {
-     * Reserva nuevaReserva = reservaService.solicitarReserva(reserva);
-     * return ResponseEntity.status(HttpStatus.CREATED).body(nuevaReserva);
-     * } catch (IllegalArgumentException | IllegalStateException e) {
-     * // Captura cruces de horario o reserva menor a 12 horas
-     * return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-     * } catch (Exception e) {
-     * return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-     * .body("Error al procesar la solicitud de reserva.");
-     * }
-     * 
-     * }
-     */
+    
     // acpetar el reserva por aprte de las nanas
     @PatchMapping("/{id}/aceptar")
     public ResponseEntity<?> aceptarReserva(@PathVariable Integer id) {

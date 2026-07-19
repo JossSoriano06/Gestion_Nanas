@@ -26,34 +26,7 @@ public class ReservaPersitenceAdapter implements ReservaRepositoryPort {
         this.ubicacionRepository = ubicacionRepositoty;
     }
 
-    /*
-     * @Override
-     * public Reserva guardarReserva(Reserva reserva) {
-     * // Mapeo de Dominio a Entidad
-     * ReservaEntity entity = new ReservaEntity();
-     * entity.setIdCliente(reserva.getIdCliente());
-     * entity.setIdNana(reserva.getIdNana());
-     * entity.setFechaInicio(reserva.getFechaInicio());
-     * entity.setFechaFin(reserva.getFechaFin());
-     * entity.setMontoTotal(reserva.getMontoTotal());
-     * entity.setEstadoPago(reserva.getEstadoPago());
-     * entity.setEstadoReserva(reserva.getEstadoReserva());
-     * 
-     * System.out.println("===== GUARDANDO =====");
-     * System.out.println(entity.getIdCliente());
-     * System.out.println(entity.getIdNana());
-     * System.out.println(entity.getFechaInicio());
-     * System.out.println(entity.getFechaFin());
-     * System.out.println(entity.getMontoTotal());
-     * 
-     * ReservaEntity guardado = reservaRepository.save(entity);
-     * 
-     * // Devolvemos el modelo de dominio actualizado con el ID generado por MySQL
-     * reserva.setIdReserva(guardado.getIdReserva());
-     * reserva.setFechaReserva(guardado.getFechaReserva());
-     * return reserva;
-     * }
-     */
+  
     @Override
     public Reserva guardarReserva(Reserva reserva) {
 
